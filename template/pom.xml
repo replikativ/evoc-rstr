@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <version>template</version>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.replikativ</groupId>
+    <artifactId>evoc-rstr</artifactId>
+    <packaging>jar</packaging>
+    <name>evoc-rstr</name>
+    <description>EVoC (Embedding Vector Oriented Clustering) for Clojure — a port of the Tutte Institute's evoc, built on the raster typed-dispatch compiler and umap-rstr.</description>
+    <licenses>
+        <license>
+            <name>BSD 2-Clause License</name>
+            <url>https://opensource.org/licenses/BSD-2-Clause</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:replikativ/evoc-rstr.git</connection>
+        <developerConnection>scm:git:git@github.com/replikativ/evoc-rstr.git</developerConnection>
+        <url>https://github.com/replikativ/evoc-rstr</url>
+    </scm>
+</project>

@@ -1,0 +1,21 @@
+evoc-rstr
+=========
+
+This product is a derivative work: a Clojure port, built on the raster
+typed-dispatch compiler (and umap-rstr), of EVoC (Embedding Vector Oriented
+Clustering).
+
+The original algorithm and its reference implementation are:
+
+    Copyright (c) 2024, Tutte Institute for Mathematics and Computing
+    https://github.com/TutteInstitute/evoc
+    BSD 2-Clause License
+
+The Clojure / raster port in this repository is:
+
+    Copyright (c) 2026, Christian Weilbach
+
+and is released under the same BSD 2-Clause License (see LICENSE). It is an
+independent reimplementation that follows the reference evoc's algorithm and
+numerical behaviour (validated bit-exact per-stage against evoc 0.3.1); it is
+not endorsed by or affiliated with the original authors.

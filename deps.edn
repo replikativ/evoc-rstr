@@ -1,0 +1,53 @@
+{:paths ["src"]
+ ;; Layering: raster (typed-dispatch compiler + kNN/spatial/RNG substrate)
+ ;;        -> umap-rstr (fuzzy simplicial set + embedding kernels)
+ ;;        -> evoc-rstr (this lib: HDBSCAN*-family clustering + multi-resolution).
+ ;;
+ ;; Pinned to git coordinates (not Clojars): raster depends on the typedclojure
+ ;; fork via git, and git deps resolve transitively only through deps.edn — not a
+ ;; Maven POM. raster is the integration-TC commit (deps.edn -> typedclojure fork
+ ;; @ ea66226f7); umap-rstr brings the fuzzy-graph + embedding kernels. When
+ ;; typedclojure ships a Maven release upstream, flip the whole chain to
+ ;; :mvn/version coordinates.
+ ;;
+ ;; For local development the :dev alias overrides both with sibling checkouts.
+ :deps {io.github.replikativ/raster
+        {:git/url "https://github.com/replikativ/raster"
+         :git/sha "43cb8ab9f0f9f6ef82b08a233bde41d64be75a09"}
+        io.github.replikativ/umap-rstr
+        {:git/url "https://github.com/replikativ/umap-rstr"
+         :git/sha "8f19460fe1cda3cfccc5f68451989eae32fb1012"}}
+
+ :aliases
+ {:test {:extra-paths ["test" "test/resources"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+         :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+                    "--add-modules=jdk.incubator.vector"
+                    "-Xss8m"
+                    "-XX:ReservedCodeCacheSize=512m"]
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}
+
+  ;; Run on the Valhalla JDK (raster's deftm kernels need --enable-preview etc.).
+  :valhalla {:jvm-opts ["-XX:ReservedCodeCacheSize=512m"
+                        "-Xmx12g"
+                        "--enable-preview"
+                        "--add-exports" "java.base/jdk.internal.vm.annotation=ALL-UNNAMED"
+                        "--add-exports" "java.base/jdk.internal.classfile.components=ALL-UNNAMED"
+                        "--add-exports" "java.base/jdk.internal.classfile.impl=ALL-UNNAMED"
+                        "--add-modules" "jdk.incubator.vector"]}
+
+  ;; Local development: use sibling raster + umap-rstr checkouts instead of shas.
+  :dev {:extra-paths ["dev" "test"]
+        :extra-deps {io.github.replikativ/raster    {:local/root "../raster"}
+                     io.github.replikativ/umap-rstr {:local/root "../umap-rstr"}
+                     criterium/criterium {:mvn/version "0.4.6"}}}
+
+  :build {:deps {io.github.clojure/tools.build          {:mvn/version "0.10.6"}
+                 slipset/deps-deploy                    {:mvn/version "0.2.2"}
+                 io.github.borkdude/gh-release-artifact {:git/sha "b946558225a7839f6a0f644834e838e190dc2262"}
+                 babashka/babashka.curl                 {:mvn/version "0.1.2"}
+                 babashka/fs                            {:mvn/version "0.3.17"}
+                 cheshire/cheshire                      {:mvn/version "5.11.0"}}
+          :ns-default build}}}

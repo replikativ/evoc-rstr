@@ -1,0 +1,9 @@
+/.cpcache
+/.clj-kondo
+/target
+/classes
+*.png
+/.lsp
+/.calva
+!/img/*.png
+/.internal/

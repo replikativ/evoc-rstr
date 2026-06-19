@@ -13,10 +13,10 @@
  ;; For local development the :dev alias overrides both with sibling checkouts.
  :deps {io.github.replikativ/raster
         {:git/url "https://github.com/replikativ/raster"
-         :git/sha "43cb8ab9f0f9f6ef82b08a233bde41d64be75a09"}
+         :git/sha "abebcb63ef88e5f77e9dcfcb370eb366594e7aca"}
         io.github.replikativ/umap-rstr
         {:git/url "https://github.com/replikativ/umap-rstr"
-         :git/sha "8f19460fe1cda3cfccc5f68451989eae32fb1012"}}
+         :git/sha "e70d94f63bfb40a212feba0cbbcb11d3292e35ac"}}
 
  :aliases
  {:test {:extra-paths ["test" "test/resources"]

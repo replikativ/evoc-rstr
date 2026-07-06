@@ -1,5 +1,9 @@
 # evoc-rstr
 
+[![Clojars Project](https://img.shields.io/clojars/v/org.replikativ/evoc-rstr.svg)](https://clojars.org/org.replikativ/evoc-rstr)
+[![CircleCI](https://circleci.com/gh/replikativ/evoc-rstr.svg?style=shield)](https://circleci.com/gh/replikativ/evoc-rstr)
+[![Slack](https://img.shields.io/badge/slack-join_chat-brightgreen.svg)](https://clojurians.slack.com/archives/C09622F337D)
+
 EVoC (Embedding Vector Oriented Clustering) for Clojure, built on
 [raster](https://github.com/replikativ/raster) +
 [umap-rstr](https://github.com/replikativ/umap-rstr). A port of the reference

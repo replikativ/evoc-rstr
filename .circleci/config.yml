@@ -38,7 +38,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Download dependencies
-          command: clojure -P -M:dev:test:build
+          command: clojure -P -M:test:build
       - save_cache:
           paths:
             - ~/.m2

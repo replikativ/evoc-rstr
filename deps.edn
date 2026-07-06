@@ -9,7 +9,7 @@
  ;;
  ;; For local development the :dev alias overrides both with sibling checkouts.
  :deps {org.replikativ/raster    {:mvn/version "0.2.258"}
-        org.replikativ/umap-rstr {:mvn/version "0.1.7"}}
+        org.replikativ/umap-rstr {:mvn/version "0.1.8"}}
 
  :aliases
  {:test {:extra-paths ["test" "test/resources"]

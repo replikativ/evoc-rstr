@@ -3,20 +3,13 @@
  ;;        -> umap-rstr (fuzzy simplicial set + embedding kernels)
  ;;        -> evoc-rstr (this lib: HDBSCAN*-family clustering + multi-resolution).
  ;;
- ;; Pinned to git coordinates (not Clojars): raster depends on the typedclojure
- ;; fork via git, and git deps resolve transitively only through deps.edn — not a
- ;; Maven POM. raster is the integration-TC commit (deps.edn -> typedclojure fork
- ;; @ ea66226f7); umap-rstr brings the fuzzy-graph + embedding kernels. When
- ;; typedclojure ships a Maven release upstream, flip the whole chain to
- ;; :mvn/version coordinates.
+ ;; On Clojars (Maven-resolvable): raster is published 0.2.x (TypedClojure is
+ ;; released, so raster's POM declares it as a proper mvn dep); umap-rstr brings
+ ;; the fuzzy-graph + embedding kernels.
  ;;
  ;; For local development the :dev alias overrides both with sibling checkouts.
- :deps {io.github.replikativ/raster
-        {:git/url "https://github.com/replikativ/raster"
-         :git/sha "64942069723eca6aa1a9c49c547a5d3b4f6de088"}
-        io.github.replikativ/umap-rstr
-        {:git/url "https://github.com/replikativ/umap-rstr"
-         :git/sha "64942069723eca6aa1a9c49c547a5d3b4f6de088"}}
+ :deps {org.replikativ/raster    {:mvn/version "0.2.258"}
+        org.replikativ/umap-rstr {:mvn/version "0.1.8"}}
 
  :aliases
  {:test {:extra-paths ["test" "test/resources"]
@@ -40,13 +33,13 @@
 
   ;; Local development: use sibling raster + umap-rstr checkouts instead of shas.
   :dev {:extra-paths ["dev" "test"]
-        :extra-deps {io.github.replikativ/raster    {:local/root "../raster"}
-                     io.github.replikativ/umap-rstr {:local/root "../umap-rstr"}
+        :extra-deps {org.replikativ/raster    {:local/root "../raster"}
+                     org.replikativ/umap-rstr {:local/root "../umap-rstr"}
                      criterium/criterium {:mvn/version "0.4.6"}}}
 
   :build {:deps {io.github.clojure/tools.build          {:mvn/version "0.10.6"}
                  slipset/deps-deploy                    {:mvn/version "0.2.2"}
-                 io.github.borkdude/gh-release-artifact {:git/sha "64942069723eca6aa1a9c49c547a5d3b4f6de088"}
+                 io.github.borkdude/gh-release-artifact {:git/sha "b946558225a7839f6a0f644834e838e190dc2262"}
                  babashka/babashka.curl                 {:mvn/version "0.1.2"}
                  babashka/fs                            {:mvn/version "0.3.17"}
                  cheshire/cheshire                      {:mvn/version "5.11.0"}}

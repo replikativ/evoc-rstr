@@ -1,14 +1,5 @@
 version: 2.1
 
-# NOTE on Clojars deploy: evoc-rstr depends on umap-rstr and raster via git
-# coordinates, and raster in turn depends on the typedclojure fork via git. Git
-# deps cannot be expressed in a Maven POM, so a Clojars jar built now would not
-# carry those deps transitively. The deploy + release jobs below are therefore
-# gated on a dedicated `release` branch (not `main`) and stay dormant: `main`
-# pushes only build + test. Once typedclojure ships a Maven release upstream,
-# flip raster / umap-rstr / this lib to mvn coordinates and change these filters
-# to `main`.
-
 commands:
   install-clojure:
     description: "Install Clojure CLI tools"
@@ -47,7 +38,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Download dependencies
-          command: clojure -P -M:dev:test:build
+          command: clojure -P -M:test:build
       - save_cache:
           paths:
             - ~/.m2
@@ -94,10 +85,10 @@ jobs:
       - run:
           name: Deploy to Clojars
           command: |
-            if [ "${CIRCLE_BRANCH}" = "release" ]; then
+            if [ "${CIRCLE_BRANCH}" = "main" ]; then
               clojure -T:build deploy
             else
-              echo "Skipping deploy - not on release branch"
+              echo "Skipping deploy - not on main branch"
             fi
 
   release:
@@ -115,7 +106,7 @@ jobs:
       - run:
           name: Create GitHub release
           command: |
-            if [ "${CIRCLE_BRANCH}" = "release" ] && [ -n "${GITHUB_TOKEN}" ]; then
+            if [ "${CIRCLE_BRANCH}" = "main" ] && [ -n "${GITHUB_TOKEN}" ]; then
               JAR_FILE=$(ls target/evoc-rstr-*.jar | head -1)
               VERSION=$(basename "$JAR_FILE" | sed 's/evoc-rstr-//' | sed 's/.jar//')
 
@@ -125,7 +116,7 @@ jobs:
                 --notes "evoc-rstr ${VERSION}" \
                 "$JAR_FILE" || echo "Release may already exist"
             else
-              echo "Skipping release - not on release branch or no GITHUB_TOKEN"
+              echo "Skipping release - not on main branch or no GITHUB_TOKEN"
             fi
 
 workflows:
@@ -144,7 +135,7 @@ workflows:
             - clojars-deploy
           filters:
             branches:
-              only: release
+              only: main
           requires:
             - test
       - release:
@@ -152,6 +143,6 @@ workflows:
             - github-token
           filters:
             branches:
-              only: release
+              only: main
           requires:
             - deploy
